@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ</title>
+</head>
+
+<body>
+
+  <h1>Frequently Asked Questions</h1>
+
+  <details>
+    <summary>What is semantic HTML?</summary>
+    <p>Semantic HTML uses meaningful elements to organize the content of a webpage.</p>
+  </details>
+
+  <details>
+    <summary>Why is semantic HTML important?</summary>
+    <p>It makes webpages easier to understand and organize.</p>
+  </details>
+
+  <details>
+    <summary>What is the details element?</summary>
+    <p>The details element creates a section that the user can open and close.</p>
+  </details>
+
+</body>
+</html>
