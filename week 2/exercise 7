@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quotation & Citation</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Quotation & Citation</h1>
+  </header>
+
+  <main>
+
+    <article>
+      <h2>Learning About Web Development</h2>
+
+      <blockquote>
+        The web is for everyone.
+      </blockquote>
+
+      <p>
+        My professor said,
+        <q>Keep practicing and you will improve.</q>
+      </p>
+
+      <p>
+        I am learning from
+        <cite>Web Programming Study Guide</cite>.
+      </p>
+
+    </article>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026</p>
+  </footer>
+
+</body>
+
+</html>
