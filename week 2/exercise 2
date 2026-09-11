@@ -1,1 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Post</title>
+</head>
+<body>
 
+<article>
+  <header>
+    <h2>Why I Love Dancing</h2>
+    <p>By Roshani · <time datetime="2026-09-11">September 11, 2026</time></p>
+  </header>
+
+  <p>Dancing is the <strong>best way to express myself</strong>. It makes me feel happy and gives me energy.</p>
+
+  <p>My favourite part is listening to music and moving with the rhythm. <em>Dancing helps me relax</em> and enjoy my free time.</p>
+
+  <footer>
+    <p>Tags: Dancing · Music · Hobby</p>
+  </footer>
+</article>
+
+</body>
+</html>
