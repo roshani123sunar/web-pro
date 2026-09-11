@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roshani's Portfolio</title>
+</head>
+
+<body>
+
+<header>
+  <h1>Roshani Sunar</h1>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="about">
+  <h2>About Me</h2>
+
+  <figure>
+    <img src="https://picsum.photos/200/200?random=6"
+         alt="A colourful profile image"
+         width="200"
+         height="200">
+    <figcaption>My portfolio profile image</figcaption>
+  </figure>
+
+  <p>
+    I am a student at
+    <abbr title="Gachon University">GU</abbr>
+    interested in <mark>web development</mark> and programming.
+    I enjoy learning new computer skills.
+  </p>
+</section>
+<section id="projects">
+  <h2>My Projects</h2>
+
+  <article>
+    <header>
+      <h3>Semantic HTML Portfolio</h3>
+      <p>
+        Completed:
+        <time datetime="2026-09">September 2026</time>
+      </p>
+    </header>
+    <p>
+      This project uses semantic HTML elements such as
+      <code>header</code>, <code>main</code>,
+      <code>section</code>, and <code>article</code>.
+    </p>
+  </article>
+</section>
+
+<aside id="skills">
+  <h2>Skills</h2>
+
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>Python basics</li>
+    <li>Communication</li>
+  </ul>
+</aside>
+<section id="contact">
+  <h2>Contact</h2>
+  
+  <address>
+    Gachon University, Seongnam, Korea
+  </address>
+</section>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Roshani Sunar</p>
+</footer>
+
+</body>
+</html>
