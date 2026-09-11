@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Development News</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Web Development News</h1>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tech">Technology</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <article>
+
+      <header>
+        <h1><mark>HTML5</mark> Changes Web Development</h1>
+
+        <p>
+          By Web Programming Team ·
+          Published
+          <time datetime="2026-09-11">September 11, 2026</time>
+        </p>
+      </header>
+      
+<figure>
+        <img src="https://picsum.photos/600/300?random=42"
+             alt="A developer working with HTML code"
+             width="600"
+             height="300">
+
+        <figcaption>
+          Modern web development uses semantic
+          <abbr title="HyperText Markup Language">HTML</abbr>.
+        </figcaption>
+      </figure>
+
+      <section>
+        <h2>Background</h2>
+
+        <p>
+          HTML5 introduced semantic elements that make webpages easier
+          to understand and organize. Elements such as
+          <code>&lt;header&gt;</code>,
+          <code>&lt;nav&gt;</code>,
+          <code>&lt;main&gt;</code>, and
+          <code>&lt;article&gt;</code>
+          give meaning to webpage content.
+        </p>
+
+        <p>
+          Semantic HTML also helps people understand the structure
+          of a webpage more easily.
+        </p>
+      </section>
+      <blockquote>
+        <p>
+          Semantic HTML helps create a clear and accessible web.
+        </p>
+
+        <footer>
+          — <cite>Web Programming Team</cite>
+        </footer>
+      </blockquote>
+
+      <section>
+        <h2>Analysis</h2>
+
+        <p>
+          Learning semantic HTML is an important step for students
+          who are beginning web development.
+        </p>
+
+        <p>
+          Using <mark>semantic elements correctly</mark> can make
+          future web projects easier to organize.
+        </p>
+      </section>
+      <aside>
+        <h2>Key Facts</h2>
+
+        <ul>
+          <li>HTML5 supports semantic elements.</li>
+          <li>Semantic HTML improves webpage structure.</li>
+          <li>Modern browsers support semantic HTML.</li>
+          <li>Semantic elements can improve accessibility.</li>
+        </ul>
+      </aside>
+
+      <footer>
+        <p>Tags: HTML5 · Web Development · Accessibility</p>
+      </footer>
+
+    </article>
+
+  </main>
+  <footer>
+    <p>&copy; 2026 Web Development News</p>
+  </footer>
+
+</body>
+
+</html>
