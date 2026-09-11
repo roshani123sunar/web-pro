@@ -1,0 +1,27 @@
+
+Sep 11, 2026, 3:21 AM
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Favourite Place</title>
+</head>
+
+<body>
+
+  <figure>
+    <img src="https://picsum.photos/400/250?random=5"
+         alt="A colourful random image"
+         width="400"
+         height="250">
+
+    <figcaption>Figure 1: A beautiful place to remember.</figcaption>
+  </figure>
+
+  <p>
+    This image was captured on
+    <time datetime="2026-09-05">September 5, 2026</time>.
+  </p>
+
+</body>
+</html>
