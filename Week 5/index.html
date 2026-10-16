@@ -1,4 +1,404 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Color Palette</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #EAF3FF;
+            color: #000000;
+        }
+
+        header {
+            background: #B7D7F5;
+            padding: 30px 15px;
+            text-align: center;
+            border-bottom: 4px solid #78AEE8;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .panel {
+            background: #FFFFFF;
+            border: 2px solid #B7D7F5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .panel h2 {
+            margin-top: 0;
+        }
+
+        .controls,
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        input[type="color"] {
+            width: 60px;
+            height: 42px;
+            cursor: pointer;
+        }
+
+        button {
+            background: #B7D7F5;
+            color: #000000;
+            border: 2px solid #78AEE8;
+            border-radius: 7px;
+            padding: 10px 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #91BDEB;
+        }
+
+        .instructions {
+            line-height: 1.6;
+        }
+
+        .palette {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .color-card {
+            background: #FFFFFF;
+            border: 2px solid #B7D7F5;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 0;
+        }
+
+        .color-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .color-box {
+            width: 100%;
+            height: 120px;
+            border: 1px solid #DDDDDD;
+            border-radius: 7px;
+            margin-bottom: 10px;
+        }
+
+        .color-code {
+            font-size: 16px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .color-card.expanded {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            text-align: left;
+        }
+
+        .color-card.expanded .color-box {
+            width: 55%;
+            height: 180px;
+            flex-shrink: 0;
+        }
+
+        #message {
+            min-height: 24px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #B7D7F5;
+            border-top: 3px solid #78AEE8;
+            padding: 18px;
+            text-align: center;
+        }
+
+        @media (max-width: 650px) {
+            .palette {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .color-card.expanded {
+                grid-column: span 2;
+            }
+
+            .color-card.expanded .color-box {
+                width: 50%;
+                height: 130px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .palette {
+                grid-template-columns: 1fr;
+            }
+
+            .color-card.expanded {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Interactive Color Palette</h1>
+        <p>Create, explore, and save your favorite colors!</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>My Color Palette</h2>
+
+            <div class="controls">
+                <label for="colorPicker">Choose a color:</label>
+                <input type="color" id="colorPicker" value="#A7C7E7">
+                <button id="addColorBtn" type="button">Add Color</button>
+            </div>
+
+            <p class="instructions">
+                Click a color box to expand it.
+                Double-click a color box to remove it.
+            </p>
+        </section>
+
+        <section id="palette" class="palette"></section>
+
+        <section class="panel actions">
+            <button id="saveBtn" type="button">Save Palette</button>
+            <button id="restoreBtn" type="button">Restore Palette</button>
+            <button id="exportBtn" type="button">Export as PNG</button>
+        </section>
+
+        <p id="message" role="status" aria-live="polite"></p>
+    </main>
+
+    <footer>
+        <p>Interactive Color Palette | Web Programming</p>
+    </footer>
+
+    <script>
+        const palette = document.getElementById("palette");
+        const colorPicker = document.getElementById("colorPicker");
+        const addColorBtn = document.getElementById("addColorBtn");
+        const saveBtn = document.getElementById("saveBtn");
+        const restoreBtn = document.getElementById("restoreBtn");
+        const exportBtn = document.getElementById("exportBtn");
+        const message = document.getElementById("message");
+
+        let colors = [
+            "#A7C7E7",
+            "#B8E0D2",
+            "#F7D6E0",
+            "#FFF1B6",
+            "#D7C5F5",
+            "#FFD8B1"
+        ];
+
+        function showMessage(text) {
+            message.textContent = text;
+        }
+
+        function renderPalette() {
+            palette.innerHTML = "";
+
+            colors.forEach(function(color) {
+                const card = document.createElement("div");
+                card.className = "color-card";
+
+                const colorBox = document.createElement("div");
+                colorBox.className = "color-box";
+                colorBox.style.backgroundColor = color;
+
+                const colorCode = document.createElement("p");
+                colorCode.className = "color-code";
+                colorCode.textContent = color;
+
+                card.appendChild(colorBox);
+                card.appendChild(colorCode);
+
+                card.addEventListener("click", function() {
+                    card.classList.toggle("expanded");
+                });
+
+                card.addEventListener("dblclick", function(event) {
+                    event.preventDefault();
+
+                    colors = colors.filter(function(item) {
+                        return item !== color;
+                    });
+
+                    renderPalette();
+                    showMessage(color + " removed from your palette.");
+                });
+
+                palette.appendChild(card);
+            });
+        }
+
+        addColorBtn.addEventListener("click", function() {
+            const newColor = colorPicker.value.toUpperCase();
+
+            if (colors.includes(newColor)) {
+                showMessage("This color is already in your palette.");
+                return;
+            }
+
+            colors.push(newColor);
+            renderPalette();
+            showMessage(newColor + " added successfully!");
+        });
+
+        saveBtn.addEventListener("click", function() {
+            try {
+                localStorage.setItem(
+                    "myColorPalette",
+                    JSON.stringify(colors)
+                );
+                showMessage("Your palette has been saved!");
+            } catch (error) {
+                showMessage("Unable to save your palette.");
+            }
+        });
+
+        restoreBtn.addEventListener("click", function() {
+            try {
+                const savedColors = localStorage.getItem("myColorPalette");
+
+                if (!savedColors) {
+                    showMessage("No saved palette found.");
+                    return;
+                }
+
+                const parsedColors = JSON.parse(savedColors);
+
+                if (
+                    !Array.isArray(parsedColors) ||
+                    !parsedColors.every(function(color) {
+                        return typeof color === "string" &&
+                            /^#[0-9A-F]{6}$/i.test(color);
+                    })
+                ) {
+                    showMessage("The saved palette is invalid.");
+                    return;
+                }
+
+                colors = [...new Set(parsedColors.map(function(color) {
+                    return color.toUpperCase();
+                }))];
+
+                renderPalette();
+                showMessage("Your palette has been restored!");
+            } catch (error) {
+                showMessage("Unable to restore your palette.");
+            }
+        });
+
+        exportBtn.addEventListener("click", function() {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            const columns = 3;
+            const boxWidth = 220;
+            const boxHeight = 150;
+            const gap = 20;
+            const padding = 30;
+            const rows = Math.max(1, Math.ceil(colors.length / columns));
+
+            canvas.width =
+                padding * 2 + columns * boxWidth + (columns - 1) * gap;
+
+            canvas.height =
+                padding * 2 + 45 + rows * boxHeight + (rows - 1) * gap;
+
+            ctx.fillStyle = "#EAF3FF";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#000000";
+            ctx.font = "bold 28px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(
+                "My Color Palette",
+                canvas.width / 2,
+                45
+            );
+
+            colors.forEach(function(color, index) {
+                const column = index % columns;
+                const row = Math.floor(index / columns);
+
+                const x = padding + column * (boxWidth + gap);
+                const y = padding + 35 + row * (boxHeight + gap);
+
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(x, y, boxWidth, boxHeight);
+
+                ctx.fillStyle = color;
+                ctx.fillRect(x + 10, y + 10, boxWidth - 20, 90);
+
+                ctx.strokeStyle = "#B7D7F5";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, boxWidth, boxHeight);
+
+                ctx.fillStyle = "#000000";
+                ctx.font = "bold 18px Arial";
+                ctx.fillText(
+                    color,
+                    x + boxWidth / 2,
+                    y + 130
+                );
+            });
+
+            const link = document.createElement("a");
+            link.download = "my-color-palette.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+
+            showMessage("Your PNG palette has been exported!");
+        });
+
+        renderPalette();
+    </script>
+
+</body>
+</html>
+
 
 
     
