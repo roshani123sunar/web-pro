@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Fetcher</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #EAF3FF;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 35px 45px;
+            background-color: #FFFFFF;
+            border-left: 3px solid #B7D7F5;
+            border-right: 3px solid #B7D7F5;
+            border-radius: 0 0 35px 35px;
+            text-align: center;
+            min-height: 600px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 46px;
+        }
+
+        .description {
+            font-size: 23px;
+            margin-bottom: 38px;
+        }
+
+        button {
+            padding: 20px 35px;
+            background-color: #9BC9F2;
+            color: #000000;
+            border: 3px solid #78AEEA;
+            border-radius: 12px;
+            font-size: 23px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #78AEEA;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .joke-box {
+            margin-top: 35px;
+            padding: 30px;
+            background-color: #F0F6FF;
+            border: 1px solid #B7D7F5;
+            border-radius: 15px;
+            text-align: left;
+            display: none;
+        }
+
+        .joke-box h2 {
+            font-size: 25px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        .joke-box p {
+            font-size: 21px;
+            line-height: 1.6;
+        }
+
+        .message {
+            margin-top: 25px;
+            font-size: 20px;
+            color: #176B35;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: #555555;
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .description {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 16px 20px;
+            }
+
+            .joke-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Random Joke Fetcher</h1>
+
+        <p class="description">
+            Need a little laugh? Click the button to get a random joke!
+        </p>
+
+        <button id="jokeButton" type="button">
+            Get a Random Joke
+        </button>
+
+        <p id="message" class="message" aria-live="polite"></p>
+
+        <div id="jokeResult" class="joke-box" aria-live="polite">
+
+            <h2>Setup</h2>
+            <p id="setup">Your joke will appear here.</p>
+
+            <h2>Punchline</h2>
+            <p id="punchline">The punchline will appear here.</p>
+
+        </div>
+
+        <footer>
+            Week 6 Web Programming Assignment
+        </footer>
+
+    </div>
+
+    <script>
+        const jokeButton = document.getElementById("jokeButton");
+        const jokeResult = document.getElementById("jokeResult");
+        const setupText = document.getElementById("setup");
+        const punchlineText = document.getElementById("punchline");
+        const message = document.getElementById("message");
+
+        const jokes = [
+            {
+                setup: "Why don't scientists trust atoms?",
+                punchline: "Because they make up everything!"
+            },
+            {
+                setup: "Why did the computer go to the doctor?",
+                punchline: "Because it had a virus!"
+            },
+            {
+                setup: "Why was the math book sad?",
+                punchline: "Because it had too many problems!"
+            },
+            {
+                setup: "What do you call a bear with no teeth?",
+                punchline: "A gummy bear!"
+            },
+            {
+                setup: "Why did the student eat their homework?",
+                punchline: "Because the teacher said it was a piece of cake!"
+            },
+            {
+                setup: "Why can't your nose be 12 inches long?",
+                punchline: "Because then it would be a foot!"
+            },
+            {
+                setup: "What do computers eat for a snack?",
+                punchline: "Microchips!"
+            },
+            {
+                setup: "Why did the bicycle fall over?",
+                punchline: "Because it was two-tired!"
+            },
+            {
+                setup: "What do you call a sleeping dinosaur?",
+                punchline: "A dino-snore!"
+            },
+            {
+                setup: "Why did the web developer go broke?",
+                punchline: "Because they used up all their cache!"
+            }
+        ];
+
+        jokeButton.addEventListener("click", function () {
+            const randomIndex = Math.floor(Math.random() * jokes.length);
+            const randomJoke = jokes[randomIndex];
+
+            setupText.textContent = randomJoke.setup;
+            punchlineText.textContent = randomJoke.punchline;
+
+            jokeResult.style.display = "block";
+            message.textContent = "Here's your random joke!";
+
+        });
+    </script>
+
+</body>
+</html>
