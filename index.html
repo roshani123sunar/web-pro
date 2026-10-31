@@ -1,49 +1,254 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunar Roshani - Web Programming</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Roshani Sunar - Web Programming Projects</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px 15px;
+            font-family: Arial, sans-serif;
+            font-style: italic;
+            background-color: #eaf3ff;
+            color: #17365d;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            background-color: #cfe5ff;
+            padding: 30px 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #174a82;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin-bottom: 0;
+        }
+
+        .about {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 0 auto 25px;
+            max-width: 850px;
+            border: 1px solid #b8d6f5;
+        }
+
+        .about h2 {
+            margin-top: 0;
+            color: #174a82;
+        }
+
+        .projects {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .projects h2 {
+            color: #174a82;
+        }
+
+        details {
+            background-color: #ffffff;
+            border: 1px solid #b8d6f5;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 15px 18px;
+            min-height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #174a82;
+            background-color: #d9ebff;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "＋";
+            font-size: 22px;
+            font-style: normal;
+        }
+
+        details[open] summary::after {
+            content: "−";
+        }
+
+        summary:hover {
+            background-color: #c5e0ff;
+        }
+
+        summary:focus-visible {
+            outline: 3px solid #174a82;
+            outline-offset: -3px;
+        }
+
+        .exercise-list {
+            padding: 12px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .exercise-list a {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 10px 14px;
+            color: #174a82;
+            background-color: #f0f7ff;
+            border: 1px solid #c5dcf5;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .exercise-list a:hover {
+            background-color: #d9ebff;
+            text-decoration: underline;
+        }
+
+        .exercise-list a:focus-visible {
+            outline: 3px solid #174a82;
+            outline-offset: 2px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #17365d;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            summary {
+                font-size: 17px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <h1>Sunar Roshani - Web Programming</h1>
+    <header>
+        <h1>WEB PROGRAMMING PROJECTS</h1>
+        <p>My learning journey and weekly assignments</p>
+    </header>
 
-  <h2>Week 1</h2>
-  <ul>
-    <li><a href="week1/profile.html">Profile</a></li>
-    <li><a href="week1/navigation.html">Navigation</a></li>
-    <li><a href="week1/hobby.html">Hobby</a></li>
-    <li><a href="week1/Myfav.html">My Favourite Book</a></li>
-    <li><a href="week1/image.html">Image</a></li>
-    <li><a href="week1/recipe.html">Recipe</a></li>
-  </ul>
+    <section class="about">
+        <h2>About Me</h2>
+        <p><strong>Name:</strong> Roshani Sunar</p>
+        <p><strong>University:</strong> Gachon University</p>
+        <p><strong>Major:</strong> Computer Engineering</p>
+        <p><strong>Student ID:</strong> 202537197</p>
+    </section>
 
-  <h2>Week 2</h2>
-  <p><a href="week%202/">View Week 2</a></p>
+    <section class="projects">
+        <h2>My Weekly Projects</h2>
 
-  <h2>Week 3</h2>
-  <p><a href="week3/">View Week 3</a></p>
+        <details>
+            <summary>Week 1</summary>
+            <div class="exercise-list">
+                <a href="week1/profile.html">Profile</a>
+                <a href="week1/navigation.html">Navigation</a>
+                <a href="week1/hobby.html">Hobby</a>
+                <a href="week1/Myfav.html">My Favourite Book</a>
+                <a href="week1/image.html">Image</a>
+                <a href="week1/recipe.html">Recipe</a>
+            </div>
+        </details>
 
-  <h2>Week 3-2</h2>
-  <p><a href="week3-2/">View Week 3-2</a></p>
+        <details>
+            <summary>Week 2</summary>
+            <div class="exercise-list">
+                <a href="week%202/">Week 2 Projects</a>
+            </div>
+        </details>
 
-<h2>Week 4-1</h2>
-<ul>
-    <li><a href="week4-1/exercise1.html">Exercise 1</a></li>
-    <li><a href="week4-1/exercise2.html">Exercise 2</a></li>
-    <li><a href="week4-1/exercise3.html">Exercise 3</a></li>
-    <li><a href="week4-1/exercise4.html">Exercise 4</a></li>
-</ul>
+        <details>
+            <summary>Week 3</summary>
+            <div class="exercise-list">
+                <a href="week3/">Week 3 Projects</a>
+            </div>
+        </details>
 
-</body>
-  
-<h2>Week 5</h2>
-<p><a href="./Week%205/index.html">View Week 5</a></p>
-  
-<h2>Week-6</h2>
-<p><a href="./Week-6/index.html">View Week-6</a></p>
-<h2>week 7</h2>  
-<p><a href="./week 7/index.html">View week 7</a></p>
+        <details>
+            <summary>Week 3-2</summary>
+            <div class="exercise-list">
+                <a href="week3-2/">Week 3-2 Projects</a>
+            </div>
+        </details>
+
+        <details>
+            <summary>Week 4-1</summary>
+            <div class="exercise-list">
+                <a href="week4-1/exercise1.html">Exercise 1</a>
+                <a href="week4-1/exercise2.html">Exercise 2</a>
+                <a href="week4-1/exercise3.html">Exercise 3</a>
+                <a href="week4-1/exercise4.html">Exercise 4</a>
+            </div>
+        </details>
+
+        <details>
+            <summary>Week 5</summary>
+            <div class="exercise-list">
+                <a href="Week%205/index.html">Week 5 Projects</a>
+            </div>
+        </details>
+
+        <details>
+            <summary>Week 6</summary>
+            <div class="exercise-list">
+                <a href="Week-6/index.html">Week 6 Projects</a>
+            </div>
+        </details>
+
+        <details>
+            <summary>Week 7</summary>
+            <div class="exercise-list">
+                <a href="week%207/index.html">Week 7 Projects</a>
+            </div>
+        </details>
+
+    </section>
+
+    <footer>
+        <p>Web Programming | Roshani Sunar | Gachon University</p>
+    </footer>
+
 </body>
 </html>
