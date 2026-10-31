@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find your next read</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#fdfaf3; --ink:#1a1512; --muted:#6f6a64; --accent:#6b0f1a; --btn:#f8e8b5; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:"Instrument Serif", Georgia, serif; font-size:22px; line-height:1.35; }
+  main { max-width:1440px; margin:0 auto; padding:80px 24px 60px; }
+  .eyebrow { font-size:16px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 8px; }
+  h1 { font-weight:400; font-size:clamp(56px,9vw,104px); line-height:1; margin:0 0 40px; }
+  h1 em { font-family:"Pinyon Script", cursive; font-style:normal; color:var(--accent); }
+  .lede { max-width:740px; margin:0 0 40px; }
+  form { display:flex; gap:15px; }
+  input { flex:1; min-width:0; height:80px; padding:0 30px; font:inherit; font-size:26px;
+          background:#fff; border:1px solid var(--ink); border-radius:22px; }
+  button { height:80px; padding:0 30px; font:inherit; font-size:26px; background:var(--btn);
+           border:1px solid var(--ink); border-radius:22px; cursor:pointer; }
+  hr { border:0; border-top:1px dotted var(--ink); margin:65px 0 40px; }
+  h2 { font-weight:400; font-size:42px; margin:0 0 14px; }
+  .status { color:var(--muted); margin:0; }
+  .results { list-style:none; padding:0; margin:30px 0 0; display:grid; gap:24px;
+             grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); }
+  .book { display:flex; gap:16px; background:#fff; border:1px solid #e3dccb; border-radius:16px; padding:16px; }
+  .book img { width:80px; height:120px; object-fit:cover; border-radius:6px; background:#efe7d2; }
+  .book h3 { font-weight:400; font-size:26px; line-height:1.1; margin:0 0 6px; }
+  .book p { margin:0; font-size:19px; color:var(--muted); }
+  .book a, .back { color:var(--accent); }
+  .back { display:inline-block; margin-top:70px; }
+  @media (max-width:640px) { form { flex-direction:column; } input, button { height:64px; font-size:21px; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">07 · Fetch API · Open Library</p>
+  <h1>Find your <em>next read.</em></h1>
+  <p class="lede">Search the Open Library catalogue by book title, author, or topic. Results are loaded from a public API.</p>
+
+  <form id="form">
+    <input id="query" type="search" placeholder="Try “The Little Prince” or “Ursula Le Guin”" required>
+    <button type="submit">Search books ↗</button>
+  </form>
+
+  <hr>
+  <h2>Search results</h2>
+  <p id="status" class="status">Enter a title, author, or topic to begin.</p>
+  <ul id="results" class="results"></ul>
+
+  <a class="back" href="#">← Back to Week 7</a>
+</main>
+
+<script>
+  const form = document.getElementById("form");
+  const input = document.getElementById("query");
+  const statusEl = document.getElementById("status");
+  const list = document.getElementById("results");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+
+    list.innerHTML = "";
+    statusEl.textContent = "Searching…";
+
+    try {
+      const res = await fetch(
+        `https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=24`
+      );
+      if (!res.ok) throw new Error("Request failed");
+      const data = await res.json();
+
+      if (data.docs.length === 0) {
+        statusEl.textContent = `No books found for “${q}”.`;
+        return;
+      }
+
+      statusEl.textContent = `Showing ${data.docs.length} results for “${q}”.`;
+
+      data.docs.forEach((b) => {
+        const cover = b.cover_i
+          ? `https://covers.openlibrary.org/b/id/${b.cover_i}-M.jpg`
+          : "";
+        const author = b.author_name ? b.author_name.slice(0, 2).join(", ") : "Unknown author";
+        const year = b.first_publish_year ? `First published ${b.first_publish_year}` : "";
+
+        const li = document.createElement("li");
+        li.className = "book";
+        li.innerHTML = `
+          <img src="${cover}" alt="" loading="lazy">
+          <div>
+            <h3></h3>
+            <p>${author}</p>
+            <p>${year}</p>
+            <a href="https://openlibrary.org${b.key}" target="_blank" rel="noopener">View on Open Library</a>
+          </div>`;
+        li.querySelector("h3").textContent = b.title;
+        list.appendChild(li);
+      });
+    } catch (err) {
+      statusEl.textContent = "Couldn’t load results. Please try again.";
+    }
+  });
+</script>
+</body>
+</html>
