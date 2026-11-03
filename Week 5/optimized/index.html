@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Color Palette</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1>Interactive Color Palette</h1>
+        <p>Create, explore, and save your favorite colors!</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>My Color Palette</h2>
+            <div class="controls">
+                <label for="colorPicker">Choose a color:</label>
+                <input type="color" id="colorPicker" value="#A7C7E7">
+                <button id="addColorBtn" type="button">Add Color</button>
+            </div>
+            <p class="instructions">
+                Click a color box to expand it.
+                Double-click a color box to remove it.
+            </p>
+        </section>
+
+        <section id="palette" class="palette"></section>
+
+        <section class="panel actions">
+            <button id="saveBtn" type="button">Save Palette</button>
+            <button id="restoreBtn" type="button">Restore Palette</button>
+            <button id="exportBtn" type="button">Export as PNG</button>
+        </section>
+
+        <p id="message" role="status" aria-live="polite"></p>
+    </main>
+
+    <footer>
+        <p>Interactive Color Palette | Web Programming</p>
+    </footer>
+
+</body>
+</html>
