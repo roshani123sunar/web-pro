@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 15px;
+            font-family: Arial, sans-serif;
+            background: #f0f7ff;
+            color: #26364a;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #285b8f;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bdcbd9;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+            color: #26364a;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #438bd0;
+            box-shadow: 0 0 5px #a8d2f5;
+            background-color: #f8fbff;
+        }
+
+        input:not(:placeholder-shown):valid {
+            border: 2px solid #35a66a;
+        }
+
+        input:not(:placeholder-shown):invalid {
+            border: 2px solid #dc6262;
+        }
+
+        .hint {
+            display: block;
+            font-size: 12px;
+            margin-top: 6px;
+            color: #718096;
+        }
+
+        .hint.error {
+            color: #dc6262;
+        }
+
+        .hint.success {
+            color: #26834e;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #438bd0;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #286eaf;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #438bd0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Registration Form</h1>
+
+    <p class="subtitle">
+        Create an account. Each field is checked as you type.
+    </p>
+
+    <form id="registerForm" novalidate>
+
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                placeholder="Enter your full name"
+                required
+                minlength="2">
+
+            <span class="hint" id="nameHint">
+                Please enter at least 2 characters.
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required>
+
+            <span class="hint" id="emailHint">
+                Enter a valid email address.
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a password"
+                required
+                minlength="8"
+                pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}">
+
+            <span class="hint" id="passwordHint">
+                At least 8 characters, with a letter and a number.
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Enter your password again"
+                required>
+
+            <span class="hint" id="confirmHint">
+                Please enter your password again.
+            </span>
+        </div>
+
+        <button type="submit">Create Account</button>
+
+        <p class="message" id="message"></p>
+
+    </form>
+
+    <a class="back-link" href="../index.html">
+        ← Back to Portfolio
+    </a>
+
+</div>
+
+<script>
+    const form = document.getElementById("registerForm");
+
+    const fullname = document.getElementById("fullname");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    const nameHint = document.getElementById("nameHint");
+    const emailHint = document.getElementById("emailHint");
+    const passwordHint = document.getElementById("passwordHint");
+    const confirmHint = document.getElementById("confirmHint");
+
+    const message = document.getElementById("message");
+
+    function showResult(input, hint, successText, errorText) {
+        if (input.value === "") {
+            hint.textContent = errorText;
+            hint.className = "hint";
+        } else if (input.checkValidity()) {
+            hint.textContent = successText;
+            hint.className = "hint success";
+        } else {
+            hint.textContent = errorText;
+            hint.className = "hint error";
+        }
+    }
+
+    fullname.addEventListener("input", function() {
+        showResult(
+            fullname,
+            nameHint,
+            "Name looks good!",
+            "Please enter at least 2 characters."
+        );
+    });
+
+    email.addEventListener("input", function() {
+        showResult(
+            email,
+            emailHint,
+            "Valid email address!",
+            "Please enter a valid email address."
+        );
+    });
+
+    password.addEventListener("input", function() {
+        showResult(
+            password,
+            passwordHint,
+            "Password looks good!",
+            "Use at least 8 characters, including a letter and a number."
+        );
+
+        checkConfirmPassword();
+    });
+
+    confirmPassword.addEventListener("input", checkConfirmPassword);
+
+    function checkConfirmPassword() {
+        if (confirmPassword.value === "") {
+            confirmHint.textContent = "Please enter your password again.";
+            confirmHint.className = "hint";
+        } else if (password.value === confirmPassword.value) {
+            confirmHint.textContent = "Passwords match!";
+            confirmHint.className = "hint success";
+        } else {
+            confirmHint.textContent = "Passwords do not match!";
+            confirmHint.className = "hint error";
+        }
+    }
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const passwordsMatch =
+            password.value === confirmPassword.value;
+
+        if (form.checkValidity() && passwordsMatch) {
+            message.textContent = "Account created successfully!";
+            message.style.color = "#26834e";
+
+            form.reset();
+
+            nameHint.textContent = "Please enter at least 2 characters.";
+            emailHint.textContent = "Enter a valid email address.";
+            passwordHint.textContent =
+                "At least 8 characters, with a letter and a number.";
+            confirmHint.textContent = "Please enter your password again.";
+
+            nameHint.className = "hint";
+            emailHint.className = "hint";
+            passwordHint.className = "hint";
+            confirmHint.className = "hint";
+        } else {
+            message.textContent = "Please check all fields.";
+            message.style.color = "#dc6262";
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
