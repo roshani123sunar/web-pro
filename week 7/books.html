@@ -1,0 +1,134 @@
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f7ff;
+    color: #26364a;
+}
+
+header {
+    background: #d9ecff;
+    color: #26364a;
+    text-align: center;
+    padding: 35px 20px;
+    border-bottom: 2px solid #c4e0fa;
+}
+
+header h1 {
+    margin: 0 0 10px;
+    color: #26364a;
+}
+
+header p {
+    margin: 0;
+    color: #536b85;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+input {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid #c5dced;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+
+button {
+    padding: 14px 22px;
+    background: #a8d3f5;
+    color: #26364a;
+    border: 1px solid #91c2eb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #8fc2ed;
+}
+
+#message {
+    text-align: center;
+    margin: 25px 0;
+    color: #647b94;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 22px;
+}
+
+.book {
+    background: white;
+    padding: 18px;
+    border: 1px solid #dceafa;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(70, 120, 170, 0.08);
+    text-align: center;
+}
+
+.book img {
+    width: 125px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.book h3 {
+    font-size: 17px;
+    margin: 8px 0;
+}
+
+.book p {
+    color: #647b94;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.book a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #397db5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.book a:hover {
+    text-decoration: underline;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 30px;
+    color: #397db5;
+    text-decoration: none;
+}
+
+@media (max-width: 550px) {
+    .search-box {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+</style>
