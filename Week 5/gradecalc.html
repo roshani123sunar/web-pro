@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Evaluator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #eaf3ff;
+            color: #26364a;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            background: #d9ecff;
+            padding: 30px 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            color: #174b83;
+        }
+
+        header p {
+            margin: 0;
+            color: #52677e;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            color: #174b83;
+            margin-top: 0;
+        }
+
+        pre {
+            background: #f1f6fc;
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .slider-area {
+            margin: 25px 0;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #2878c8;
+        }
+
+        .score-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #174b83;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .result {
+            background: #eaf3ff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .grade {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1765a8;
+            margin: 10px;
+        }
+
+        .trace-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f3f7fc;
+            border-left: 4px solid #9bbce0;
+            border-radius: 6px;
+        }
+
+        .true {
+            border-left-color: #23965b;
+        }
+
+        .false {
+            border-left-color: #d58a36;
+        }
+
+        .footer {
+            text-align: center;
+            color: #718096;
+            font-size: 13px;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Grade Evaluator</h1>
+        <p>JavaScript Conditional Statements</p>
+    </header>
+
+    <section class="card">
+        <h2>Programming Homework</h2>
+
+        <p>
+            Conditional statements allow JavaScript to make decisions.
+            The if, else if, and else statements check conditions and
+            execute different code depending on the result.
+        </p>
+
+        <p><strong>Example JavaScript Code:</strong></p>
+
+        <pre><code>let score = 85;
+
+if (score >= 90) {
+    console.log('A');
+}
+else if (score >= 80) {
+    console.log('B');
+}
+else if (score >= 70) {
+    console.log('C');
+}
+else {
+    console.log('F');
+}</code></pre>
+
+        <p>
+            JavaScript checks each condition in order. When it finds
+            the first true condition, it executes that result and
+            skips the remaining conditions.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>Live Grade Evaluation</h2>
+
+        <p>Move the slider to change the student's score.</p>
+
+        <div class="slider-area">
+            <label for="scoreSlider"><strong>Select Score (0–100)</strong></label>
+
+            <input
+                type="range"
+                id="scoreSlider"
+                min="0"
+                max="100"
+                value="85"
+                oninput="evaluateGrade()"
+            >
+
+            <div class="score-display">
+                Score: <span id="scoreValue">85</span>
+            </div>
+        </div>
+
+        <div class="result">
+            <p>Your Grade</p>
+            <div class="grade" id="gradeResult">B</div>
+            <p id="feedback">Good job! You received a B.</p>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Condition Evaluation Trace</h2>
+
+        <p>See how JavaScript checks each condition:</p>
+
+        <div id="conditionTrace"></div>
+    </section>
+
+    <div class="footer">
+        JavaScript Practice | Grade Evaluator
+    </div>
+
+</div>
+
+<script>
+    function evaluateGrade() {
+        let score = Number(document.getElementById("scoreSlider").value);
+
+        document.getElementById("scoreValue").textContent = score;
+
+        let grade;
+        let feedback;
+
+        let conditions = [];
+
+        if (score >= 90) {
+            grade = "A";
+            feedback = "Excellent work! You received an A.";
+
+            conditions = [
+                ["score >= 90", true],
+                ["score >= 80", "Skipped"],
+                ["score >= 70", "Skipped"]
+            ];
+        }
+        else if (score >= 80) {
+            grade = "B";
+            feedback = "Good job! You received a B.";
+
+            conditions = [
+                ["score >= 90", false],
+                ["score >= 80", true],
+                ["score >= 70", "Skipped"]
+            ];
+        }
+        else if (score >= 70) {
+            grade = "C";
+            feedback = "You passed! You received a C.";
+
+            conditions = [
+                ["score >= 90", false],
+                ["score >= 80", false],
+                ["score >= 70", true]
+            ];
+        }
+        else {
+            grade = "F";
+            feedback = "Keep practicing! You received an F.";
+
+            conditions = [
+                ["score >= 90", false],
+                ["score >= 80", false],
+                ["score >= 70", false]
+            ];
+        }
+
+        document.getElementById("gradeResult").textContent = grade;
+        document.getElementById("feedback").textContent = feedback;
+
+        let traceHTML = "";
+
+        conditions.forEach(function(condition) {
+            let status = condition[1];
+
+            let className = status === true ? "true" :
+                            status === false ? "false" : "";
+
+            let message = status === true ? "TRUE" :
+                          status === false ? "FALSE" : "SKIPPED";
+
+            traceHTML += `
+                <div class="trace-item ${className}">
+                    <strong>${condition[0]}</strong>
+                    — ${message}
+                </div>
+            `;
+        });
+
+        traceHTML += `
+            <div class="trace-item true">
+                <strong>Final Result:</strong> Grade ${grade}
+            </div>
+        `;
+
+        document.getElementById("conditionTrace").innerHTML = traceHTML;
+    }
+
+    evaluateGrade();
+</script>
+
+</body>
+</html>
