@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops Lab - Step Loop</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #eaf3ff;
+            color: #26364a;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        header {
+            background: #d9ecff;
+            text-align: center;
+            padding: 30px 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #174b83;
+            margin: 0 0 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            color: #174b83;
+        }
+
+        pre {
+            background: #f1f6fc;
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            line-height: 1.7;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #2878c8;
+        }
+
+        button {
+            background: #2878c8;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px 5px 5px 0;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #174b83;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background: #eaf3ff;
+            border: 2px solid #c5dcf5;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 90px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .active {
+            background: #2878c8;
+            color: white;
+            border-color: #174b83;
+        }
+
+        .console {
+            background: #172333;
+            color: #a8e6b0;
+            padding: 18px;
+            border-radius: 10px;
+            min-height: 60px;
+            font-family: monospace;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .footer {
+            text-align: center;
+            color: #718096;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Loops Lab</h1>
+        <p>Step Loop & Fruit Array Loop</p>
+        <p>JavaScript Homework</p>
+    </header>
+
+    <section class="card">
+        <h2>01. Step Loop</h2>
+
+        <p>
+            A for loop repeats a block of code several times.
+            It uses three main parts:
+        </p>
+
+        <ul>
+            <li><strong>Initialization:</strong> Starts the counter.</li>
+            <li><strong>Condition:</strong> Checks whether the loop should continue.</li>
+            <li><strong>Update:</strong> Changes the counter after each repetition.</li>
+        </ul>
+
+        <h3>Example JavaScript Code</h3>
+
+        <pre><code>for (let i = 1; i <= 5; i++) {
+    console.log('Step ' + i);
+}</code></pre>
+
+        <p>
+            This loop starts at 1 and repeats until it reaches 5.
+            Each time, it prints the current step.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>Step Loop Visualizer</h2>
+
+        <label for="repeatCount">
+            <strong>Repeat Times (N): </strong>
+            <span id="repeatValue">5</span>
+        </label>
+
+        <input
+            type="range"
+            id="repeatCount"
+            min="1"
+            max="10"
+            value="5"
+            oninput="changeRepeat()"
+        >
+
+        <div style="margin-top:20px;">
+            <button onclick="runLoop()">Run Step Loop</button>
+            <button onclick="nextStep()">Next Step</button>
+            <button onclick="clearLoop()">Clear</button>
+        </div>
+
+        <h3>Loop Iterations</h3>
+        <div class="steps" id="steps"></div>
+
+        <h3>Console Output</h3>
+        <div class="console" id="consoleOutput">
+            Click Run Step Loop to start...
+        </div>
+    </section>
+
+    <div class="footer">
+        JavaScript Practice | Loops Lab
+    </div>
+
+</div>
+
+<script>
+    let repeatTimes = 5;
+    let currentStep = 0;
+    let running = false;
+
+    function changeRepeat() {
+        repeatTimes = Number(document.getElementById("repeatCount").value);
+        document.getElementById("repeatValue").textContent = repeatTimes;
+        clearLoop();
+    }
+
+    function runLoop() {
+        currentStep = 0;
+        running = true;
+
+        document.getElementById("steps").innerHTML = "";
+        document.getElementById("consoleOutput").innerHTML = "";
+
+        nextStep();
+    }
+
+    function nextStep() {
+        if (!running) {
+            document.getElementById("consoleOutput").textContent =
+                "Click Run Step Loop first.";
+            return;
+        }
+
+        if (currentStep >= repeatTimes) {
+            document.getElementById("consoleOutput").innerHTML +=
+                "<br>Loop finished!";
+            running = false;
+            return;
+        }
+
+        currentStep++;
+
+        let stepBox = document.createElement("div");
+        stepBox.className = "step active";
+        stepBox.textContent = "Step " + currentStep;
+
+        document.getElementById("steps").appendChild(stepBox);
+
+        document.getElementById("consoleOutput").innerHTML +=
+            "Step " + currentStep + "<br>";
+
+        if (currentStep === repeatTimes) {
+            document.getElementById("consoleOutput").innerHTML +=
+                "Loop finished!";
+            running = false;
+        }
+    }
+
+    function clearLoop() {
+        currentStep = 0;
+        running = false;
+
+        document.getElementById("steps").innerHTML = "";
+        document.getElementById("consoleOutput").textContent =
+            "Click Run Step Loop to start...";
+    }
+</script>
+
+</body>
+</html>
