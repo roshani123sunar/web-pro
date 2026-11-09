@@ -1,134 +1,348 @@
 
-<style>
-* {
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f0f7ff;
-    color: #26364a;
-}
+    <title>Open Library Book Search</title>
 
-header {
-    background: #d9ecff;
-    color: #26364a;
-    text-align: center;
-    padding: 35px 20px;
-    border-bottom: 2px solid #c4e0fa;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-header h1 {
-    margin: 0 0 10px;
-    color: #26364a;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f7ff;
+            color: #26364a;
+        }
 
-header p {
-    margin: 0;
-    color: #536b85;
-}
+        header {
+            background: #d9ecff;
+            color: #26364a;
+            text-align: center;
+            padding: 35px 20px;
+            border-bottom: 2px solid #c4e0fa;
+        }
 
-.container {
-    max-width: 1100px;
-    margin: 35px auto;
-    padding: 20px;
-}
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
 
-.search-box {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
+        header p {
+            margin: 0;
+            color: #536b85;
+        }
 
-input {
-    flex: 1;
-    padding: 14px;
-    border: 1px solid #c5dced;
-    border-radius: 8px;
-    font-size: 16px;
-    background: white;
-}
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
 
-button {
-    padding: 14px 22px;
-    background: #a8d3f5;
-    color: #26364a;
-    border: 1px solid #91c2eb;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-}
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
 
-button:hover {
-    background: #8fc2ed;
-}
+        input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #c5dced;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
 
-#message {
-    text-align: center;
-    margin: 25px 0;
-    color: #647b94;
-}
+        button {
+            padding: 14px 22px;
+            background: #a8d3f5;
+            color: #26364a;
+            border: 1px solid #91c2eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
 
-.results {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 22px;
-}
+        button:hover {
+            background: #8fc2ed;
+        }
 
-.book {
-    background: white;
-    padding: 18px;
-    border: 1px solid #dceafa;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(70, 120, 170, 0.08);
-    text-align: center;
-}
+        #message {
+            text-align: center;
+            margin: 25px 0;
+            color: #647b94;
+        }
 
-.book img {
-    width: 125px;
-    height: 180px;
-    object-fit: contain;
-    margin-bottom: 12px;
-}
+        .results {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(210px, 1fr));
+            gap: 22px;
+        }
 
-.book h3 {
-    font-size: 17px;
-    margin: 8px 0;
-}
+        .book {
+            background: white;
+            padding: 18px;
+            border: 1px solid #dceafa;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(70, 120, 170, 0.08);
+            text-align: center;
+        }
 
-.book p {
-    color: #647b94;
-    font-size: 14px;
-    line-height: 1.5;
-}
+        .book img {
+            width: 125px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
 
-.book a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #397db5;
-    text-decoration: none;
-    font-weight: bold;
-}
+        .book h3 {
+            font-size: 17px;
+            margin: 8px 0;
+        }
 
-.book a:hover {
-    text-decoration: underline;
-}
+        .book p {
+            color: #647b94;
+            font-size: 14px;
+            line-height: 1.5;
+        }
 
-.back {
-    display: inline-block;
-    margin-top: 30px;
-    color: #397db5;
-    text-decoration: none;
-}
+        .book a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #397db5;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-@media (max-width: 550px) {
-    .search-box {
-        flex-direction: column;
-    }
+        .book a:hover {
+            text-decoration: underline;
+        }
 
-    button {
-        width: 100%;
-    }
-}
-</style>
+        .back {
+            display: inline-block;
+            margin-top: 30px;
+            color: #397db5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #647b94;
+            font-size: 13px;
+        }
+
+        @media (max-width: 550px) {
+            .search-box {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Open Library</h1>
+        <p>Discover books and find your next favorite read.</p>
+    </header>
+
+    <main class="container">
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by book title, author, or topic..."
+                aria-label="Search books"
+            >
+
+            <button id="searchButton">
+                Search Books
+            </button>
+        </div>
+
+        <p id="message">
+            Enter a book title, author, or topic to begin.
+        </p>
+
+        <section
+            class="results"
+            id="results"
+            aria-live="polite"
+        ></section>
+
+        <a href="index.html" class="back">
+            ← Back to Week 7
+        </a>
+
+    </main>
+
+    <footer>
+        Open Library Book Search | Web Programming
+    </footer>
+
+    <script>
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const searchButton =
+            document.getElementById("searchButton");
+
+        const results =
+            document.getElementById("results");
+
+        const message =
+            document.getElementById("message");
+
+
+        async function searchBooks() {
+
+            const query = searchInput.value.trim();
+
+            if (!query) {
+                message.textContent =
+                    "Please enter a book title or author.";
+
+                results.replaceChildren();
+                return;
+            }
+
+            results.replaceChildren();
+
+            message.textContent = "Searching for books...";
+
+            try {
+
+                const url =
+                    "https://openlibrary.org/search.json?q=" +
+                    encodeURIComponent(query) +
+                    "&fields=key,title,author_name,first_publish_year,cover_i&limit=12";
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("Unable to load books.");
+                }
+
+                const data = await response.json();
+
+                if (!data.docs || data.docs.length === 0) {
+
+                    message.textContent =
+                        "No books found. Try another search.";
+
+                    return;
+                }
+
+                message.textContent =
+                    "Found " + data.docs.length + " books.";
+
+                data.docs.forEach(book => {
+
+                    const card =
+                        document.createElement("article");
+
+                    card.className = "book";
+
+                    const image =
+                        document.createElement("img");
+
+                    image.src = book.cover_i
+                        ? "https://covers.openlibrary.org/b/id/" +
+                          book.cover_i + "-M.jpg"
+                        : "https://placehold.co/125x180?text=No+Cover";
+
+                    image.alt =
+                        "Cover of " + (book.title || "Unknown book");
+
+                    const title =
+                        document.createElement("h3");
+
+                    title.textContent =
+                        book.title || "Unknown title";
+
+                    const author =
+                        document.createElement("p");
+
+                    author.textContent =
+                        "Author: " +
+                        (book.author_name
+                            ? book.author_name.slice(0, 3).join(", ")
+                            : "Unknown");
+
+                    const year =
+                        document.createElement("p");
+
+                    year.textContent =
+                        "First published: " +
+                        (book.first_publish_year || "Unknown");
+
+                    const link =
+                        document.createElement("a");
+
+                    link.href = book.key
+                        ? "https://openlibrary.org" + book.key
+                        : "https://openlibrary.org";
+
+                    link.textContent = "View Book →";
+
+                    link.target = "_blank";
+
+                    link.rel = "noopener noreferrer";
+
+                    card.append(
+                        image,
+                        title,
+                        author,
+                        year,
+                        link
+                    );
+
+                    results.appendChild(card);
+
+                });
+
+            } catch (error) {
+
+                message.textContent =
+                    "Something went wrong. Please try again.";
+
+                console.error(error);
+
+            }
+        }
+
+
+        searchButton.addEventListener(
+            "click",
+            searchBooks
+        );
+
+        searchInput.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+                    searchBooks();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
