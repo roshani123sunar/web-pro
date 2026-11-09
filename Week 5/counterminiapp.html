@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Mini-App</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #eaf3ff;
+            color: #26364a;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        header {
+            background: #d9ecff;
+            color: #174b83;
+            text-align: center;
+            padding: 30px 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        h2, h3 {
+            color: #174b83;
+        }
+
+        .counter-display {
+            background: #eaf3ff;
+            border: 2px solid #c5dcf5;
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #count {
+            font-size: 55px;
+            font-weight: bold;
+            color: #174b83;
+        }
+
+        button {
+            background: #2878c8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #174b83;
+        }
+
+        .reset-btn {
+            background: #718096;
+        }
+
+        .reset-btn:hover {
+            background: #52677e;
+        }
+
+        input {
+            padding: 11px;
+            width: 120px;
+            border: 1px solid #b8cde5;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #26364a;
+        }
+
+        .console {
+            background: #f1f6fc;
+            border: 1px solid #c5dcf5;
+            color: #174b83;
+            padding: 18px;
+            border-radius: 10px;
+            min-height: 70px;
+            font-family: monospace;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .history-item {
+            background: #eaf3ff;
+            border-left: 4px solid #2878c8;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #718096;
+            font-size: 13px;
+            padding: 15px;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 18px;
+            }
+
+            button {
+                margin: 5px 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Counter Mini-App</h1>
+        <p>Variables, Functions & DOM Manipulation</p>
+        <p>JavaScript Homework</p>
+    </header>
+
+    <section class="card">
+        <h2>About This Project</h2>
+
+        <p>
+            This mini-app demonstrates JavaScript variables,
+            functions, and DOM manipulation.
+        </p>
+
+        <p>
+            A variable stores the counter value. Functions change
+            the value, and DOM manipulation updates the number
+            displayed on the webpage.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>JavaScript Example Code</h2>
+
+        <pre style="background:#f1f6fc; padding:18px; border-radius:10px; overflow-x:auto; line-height:1.7;"><code>let count = 0;
+
+function change(amount) {
+    count = count + amount;
+    document.getElementById('count').textContent = count;
+}
+
+function reset() {
+    count = 0;
+    document.getElementById('count').textContent = 0;
+}</code></pre>
+    </section>
+
+    <section class="card">
+        <h2>Interactive Counter</h2>
+
+        <div class="counter-display">
+            <p>Current Count</p>
+            <div id="count">0</div>
+        </div>
+
+        <div style="text-align:center;">
+            <button onclick="change(1)">+ Add</button>
+            <button onclick="change(-1)">− Subtract</button>
+            <button class="reset-btn" onclick="resetCounter()">
+                Reset
+            </button>
+        </div>
+
+        <h3>Change Amount</h3>
+
+        <p>Choose how much you want to add or subtract:</p>
+
+        <input
+            type="number"
+            id="amount"
+            value="1"
+            min="1"
+        >
+
+        <div style="margin-top:12px;">
+            <button onclick="customChange(1)">
+                Add Amount
+            </button>
+
+            <button onclick="customChange(-1)">
+                Subtract Amount
+            </button>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Console Output</h2>
+
+        <div class="console" id="consoleOutput">
+            Counter is ready. Current value: 0
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Recent Changes</h2>
+
+        <div id="history">
+            <p>No changes yet.</p>
+        </div>
+    </section>
+
+    <div class="footer">
+        JavaScript Practice | Counter Mini-App
+    </div>
+
+</div>
+
+<script>
+    let count = 0;
+
+    function updateDisplay() {
+        document.getElementById("count").textContent = count;
+    }
+
+    function addHistory(message) {
+        const history = document.getElementById("history");
+
+        if (history.querySelector("p")) {
+            history.innerHTML = "";
+        }
+
+        const item = document.createElement("div");
+        item.className = "history-item";
+        item.textContent = message;
+
+        history.prepend(item);
+
+        // Keep only the latest 5 changes
+        while (history.children.length > 5) {
+            history.removeChild(history.lastElementChild);
+        }
+    }
+
+    function change(amount) {
+        count = count + amount;
+
+        updateDisplay();
+
+        const message = "Changed by " + amount +
+                        ". New count: " + count;
+
+        document.getElementById("consoleOutput").textContent =
+            message;
+
+        addHistory(message);
+    }
+
+    function customChange(direction) {
+        const amount = Number(
+            document.getElementById("amount").value
+        );
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+            alert("Please enter a number greater than 0.");
+            return;
+        }
+
+        change(direction * amount);
+    }
+
+    function resetCounter() {
+        count = 0;
+
+        updateDisplay();
+
+        const message = "Counter reset to 0.";
+
+        document.getElementById("consoleOutput").textContent =
+            message;
+
+        addHistory(message);
+    }
+</script>
+
+</body>
+</html>
