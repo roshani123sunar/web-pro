@@ -1,1 +1,783 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Week 10 | Git, GitHub & Deployment</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f8fc;
+    color: #252525;
+    line-height: 1.7;
+}
+
+header {
+    background: #dceeff;
+    padding: 22px 8%;
+    border-bottom: 1px solid #c4dced;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: #183c60;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+nav a {
+    color: #34536e;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #0875c1;
+}
+
+.hero {
+    text-align: center;
+    padding: 75px 20px 65px;
+    background: #e8f3fc;
+}
+
+.hero .small {
+    color: #49769d;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    color: #173d61;
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 720px;
+    margin: auto;
+    color: #52677a;
+}
+
+.student {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #56718a;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 50px auto;
+    padding: 0 22px;
+}
+
+.section {
+    margin-bottom: 65px;
+}
+
+.section-label {
+    color: #4682b4;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.section h2 {
+    color: #173e63;
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.intro {
+    color: #66717c;
+    margin-bottom: 28px;
+    max-width: 800px;
+}
+
+.project-card,
+.exercise-card,
+.reflection {
+    background: white;
+    border: 1px solid #dbe7f0;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(35, 75, 110, 0.04);
+}
+
+.category {
+    color: #4983b2;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    margin-bottom: 7px;
+}
+
+h3 {
+    color: #244b70;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.project-card p,
+.exercise-card p,
+.reflection p {
+    color: #596673;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 17px;
+    margin-top: 15px;
+}
+
+.links a {
+    color: #2474b5;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+pre {
+    background: #edf4fa;
+    border: 1px solid #d9e6f0;
+    border-radius: 7px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 15px 0;
+    color: #263e55;
+    font-size: 13px;
+}
+
+code {
+    font-family: Consolas, monospace;
+}
+
+ul {
+    padding-left: 23px;
+    margin: 12px 0;
+    color: #596673;
+    font-size: 14px;
+}
+
+.result {
+    background: #edf5fb;
+    border-left: 4px solid #78a9d0;
+    padding: 12px 15px;
+    margin-top: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #40576b;
+}
+
+.status {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    background: #e5f1fa;
+    color: #376d98;
+    font-size: 12px;
+}
+
+.reflection {
+    line-height: 1.9;
+}
+
+footer {
+    background: #dceeff;
+    padding: 25px 15px;
+    text-align: center;
+    color: #49647d;
+    font-size: 13px;
+}
+
+footer a {
+    color: #246b9e;
+    text-decoration: none;
+}
+
+@media (max-width: 650px) {
+    header {
+        padding: 18px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    nav a {
+        margin: 0 7px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 55px 18px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .section h2 {
+        font-size: 23px;
+    }
+
+    .project-card,
+    .exercise-card,
+    .reflection {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <div class="logo">Roshani Sunar</div>
+
+        <div>
+            <a href="#home">Home</a>
+            <a href="#homework">Homework</a>
+            <a href="#git">Git Practice</a>
+            <a href="#pages">GitHub Pages</a>
+            <a href="#reflection">Reflection</a>
+        </div>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <p class="small">Gachon University · Computer Engineering</p>
+
+    <h1>Git, GitHub & Deployment</h1>
+
+    <p>
+        Week 10 documents my web programming projects and
+        practical exercises. It includes my personal portfolio,
+        Git version control practice, GitHub repositories,
+        and website deployment using GitHub Pages.
+    </p>
+
+    <div class="student">
+        Student: Roshani Sunar · Week 10 · 2026
+    </div>
+</section>
+
+<main class="container">
+
+<!-- PART 01 -->
+
+<section class="section" id="homework">
+
+    <div class="section-label">Part 01 · Homework</div>
+
+    <h2>My Web Programming Projects</h2>
+
+    <p class="intro">
+        These projects represent my learning progress in web
+        development, HTML, CSS, JavaScript, and GitHub.
+    </p>
+
+    <div class="project-card">
+        <div class="category">PERSONAL WEBSITE</div>
+
+        <h3>01. Personal Portfolio</h3>
+
+        <p>
+            I created a personal portfolio to introduce myself
+            and share my education, skills, interests, dreams,
+            and web programming projects. The website represents
+            my learning journey as a Computer Engineering student
+            at Gachon University.
+        </p>
+
+        <div class="links">
+            <a href="https://roshani123sunar.github.io/portfolio/"
+               target="_blank" rel="noopener noreferrer">
+                Live Website ↗
+            </a>
+
+            <a href="https://github.com/roshani123sunar"
+               target="_blank" rel="noopener noreferrer">
+                GitHub Profile ↗
+            </a>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <div class="category">WEB PROGRAMMING PROJECTS</div>
+
+        <h3>02. Web Programming Repository</h3>
+
+        <p>
+            This repository contains my web programming
+            assignments and projects. I organized my weekly
+            exercises and uploaded my completed work using GitHub.
+        </p>
+
+        <div class="links">
+            <a href="https://roshani123sunar.github.io/web-pro/"
+               target="_blank" rel="noopener noreferrer">
+                Live Website ↗
+            </a>
+
+            <a href="https://github.com/roshani123sunar/web-pro"
+               target="_blank" rel="noopener noreferrer">
+                Repository ↗
+            </a>
+        </div>
+    </div>
+
+    <div class="project-card">
+        <div class="category">GIT AND GITHUB PRACTICE</div>
+
+        <h3>03. Week 10-2 Git Practice</h3>
+
+        <p>
+            I created a separate repository to practice Git
+            commands, commits, branches, merging, pull requests,
+            and GitHub Pages.
+        </p>
+
+        <div class="links">
+            <a href="https://github.com/roshani123sunar/week10-2-git-practice"
+               target="_blank" rel="noopener noreferrer">
+                Repository ↗
+            </a>
+
+            <a href="https://github.com/roshani123sunar/week10-2-git-practice/commits/main"
+               target="_blank" rel="noopener noreferrer">
+                Commit History ↗
+            </a>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- PART 02 -->
+
+<section class="section" id="git">
+
+    <div class="section-label">Part 02 · Git Practice</div>
+
+    <h2>Git and Version Control</h2>
+
+    <p class="intro">
+        The following exercises demonstrate repository
+        initialization, commits, branching, merging, and
+        remote repositories.
+    </p>
+
+    <div class="exercise-card">
+
+        <div class="category">EXERCISE 01</div>
+
+        <h3>Create Your First Git Repository</h3>
+
+        <p>
+            <strong>Goal:</strong> Initialize a Git repository,
+            create a file, and make the first commit.
+        </p>
+
+        <p>
+            I started by checking Git and creating a repository.
+            I created an index.html file, checked its status,
+            staged the file, and made my first commit.
+        </p>
+
+<pre><code>git --version
+
+git init -b main
+
+git status
+
+git add index.html
+
+git commit -m "Initial commit: add index.html"
+
+git log --oneline</code></pre>
+
+        <p><strong>My actual first commit:</strong></p>
+
+        <pre><code>aa26e4e Initial commit: add index.html</code></pre>
+
+        <div class="result">
+            <strong>Result:</strong> Git successfully tracked
+            my index.html file after staging and committing it.
+        </div>
+
+        <span class="status">First commit completed</span>
+
+    </div>
+
+
+    <div class="exercise-card">
+
+        <div class="category">EXERCISE 02</div>
+
+        <h3>Create a Branch and Merge It</h3>
+
+        <p>
+            <strong>Goal:</strong> Create a feature branch,
+            make changes, and merge them into the main branch.
+        </p>
+
+        <p>
+            I created a new branch called feature-style.
+            On this branch, I added a basic stylesheet and
+            committed the changes. I then switched to the
+            main branch and checked the commit history.
+        </p>
+
+<pre><code>git checkout -b feature-style
+
+git add style.css
+
+git commit -m "Add basic stylesheet"
+
+git checkout main
+
+git merge feature-style
+
+git log --oneline --graph --all</code></pre>
+
+        <p><strong>My recorded commits:</strong></p>
+
+        <ul>
+            <li>4103979 - Add basic stylesheet</li>
+            <li>393aa9f - Add styles to stylesheet</li>
+            <li>aa26e4e - Initial commit: add index.html</li>
+        </ul>
+
+        <div class="result">
+            <strong>Result:</strong> I learned how branches
+            separate changes and how Git displays commit
+            history using a graph.
+        </div>
+
+        <span class="status">Branch practice completed</span>
+
+    </div>
+
+
+    <div class="exercise-card">
+
+        <div class="category">EXERCISE 03</div>
+
+        <h3>Push a Repository to GitHub</h3>
+
+        <p>
+            <strong>Goal:</strong> Connect a local Git repository
+            to a remote GitHub repository and upload commits.
+        </p>
+
+        <p>
+            I practiced checking the commit history of my
+            repository and understanding how local branches
+            connect with remote branches.
+        </p>
+
+<pre><code>git remote -v
+
+git branch -a
+
+git log --oneline --graph --all</code></pre>
+
+        <p><strong>Repository:</strong></p>
+
+        <div class="links">
+            <a href="https://github.com/roshani123sunar/week10-2-git-practice"
+               target="_blank" rel="noopener noreferrer">
+                View My GitHub Repository ↗
+            </a>
+        </div>
+
+        <div class="result">
+            <strong>Result:</strong> I learned how to check
+            local and remote branches and view the repository's
+            commit history.
+        </div>
+
+    </div>
+
+
+    <div class="exercise-card">
+
+        <div class="category">EXTRA PRACTICE</div>
+
+        <h3>Creating a Pull Request</h3>
+
+        <p>
+            <strong>Goal:</strong> Understand the GitHub
+            collaboration workflow by creating a branch,
+            pushing it, opening a pull request, and merging it.
+        </p>
+
+        <p>
+            I created a separate branch called add-readme
+            and added a README file. After pushing the branch,
+            I practiced the pull request and merge process.
+        </p>
+
+<pre><code>git checkout -b add-readme
+
+git add README.md
+
+git commit -m "Add project README"
+
+git push -u origin add-readme
+
+git log --oneline --graph --all</code></pre>
+
+        <p><strong>My recorded commits:</strong></p>
+
+        <ul>
+            <li>168f5b0 - Add project README</li>
+            <li>346d744 - Merge pull request #1</li>
+        </ul>
+
+        <div class="result">
+            <strong>Result:</strong> I understood how a pull
+            request allows changes from one branch to be
+            reviewed and merged into another branch.
+        </div>
+
+        <span class="status">Pull request merged</span>
+
+        <div class="links">
+            <a href="https://github.com/roshani123sunar/week10-2-git-practice"
+               target="_blank" rel="noopener noreferrer">
+                View Repository ↗
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PART 03 -->
+
+<section class="section" id="pages">
+
+    <div class="section-label">Part 03 · Friday Practice</div>
+
+    <h2>GitHub Pages and Deployment</h2>
+
+    <p class="intro">
+        These exercises helped me understand website publishing
+        and how to create a better experience for visitors.
+    </p>
+
+    <div class="exercise-card">
+
+        <div class="category">EXERCISE 01</div>
+
+        <h3>Publish a Website Using GitHub Pages</h3>
+
+        <p>
+            <strong>Goal:</strong> Understand how to publish
+            a website through GitHub Pages.
+        </p>
+
+        <p>
+            I worked with my GitHub repository and learned
+            how HTML files can be hosted online. GitHub Pages
+            makes it possible to access a website through
+            a public URL.
+        </p>
+
+        <div class="links">
+            <a href="https://roshani123sunar.github.io/portfolio/"
+               target="_blank" rel="noopener noreferrer">
+                View My Portfolio ↗
+            </a>
+
+            <a href="https://github.com/roshani123sunar/week10-2-git-practice"
+               target="_blank" rel="noopener noreferrer">
+                View GitHub Repository ↗
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="exercise-card">
+
+        <div class="category">EXERCISE 02</div>
+
+        <h3>Understand a 404 Error Page</h3>
+
+        <p>
+            <strong>Goal:</strong> Understand what happens
+            when a visitor opens a URL that does not exist.
+        </p>
+
+        <p>
+            A 404 error occurs when the requested page
+            cannot be found. I tested a missing HTML file
+            through my GitHub Pages URL.
+        </p>
+
+        <p><strong>My observation:</strong></p>
+
+        <ul>
+            <li>The requested page does not exist.</li>
+            <li>The browser displays a 404 error.</li>
+            <li>A custom error page can help visitors return
+                to the homepage.</li>
+        </ul>
+
+        <div class="result">
+            <strong>Result:</strong> I learned why websites
+            need a helpful error page when visitors open
+            an unavailable URL.
+        </div>
+
+        <div class="links">
+            <a href="https://roshani123sunar.github.io/week10-2-git-practice/nothing.html"
+               target="_blank" rel="noopener noreferrer">
+                Test Missing Page ↗
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="exercise-card">
+
+        <div class="category">EXERCISE 03</div>
+
+        <h3>Create a Custom 404 Page</h3>
+
+        <p>
+            <strong>Goal:</strong> Create a custom 404.html
+            file and make it available through GitHub Pages.
+        </p>
+
+        <p>
+            I created a custom 404.html file to explain
+            that the requested page is unavailable.
+            The page also provides a way for visitors
+            to return to the homepage.
+        </p>
+
+<pre><code>git add 404.html
+
+git commit -m "Add custom 404 page"
+
+git push origin main</code></pre>
+
+        <div class="links">
+
+            <a href="https://github.com/roshani123sunar/week10-2-git-practice/blob/main/404.html"
+               target="_blank" rel="noopener noreferrer">
+                View 404.html Source Code ↗
+            </a>
+
+            <a href="https://roshani123sunar.github.io/week10-2-git-practice/404.html"
+               target="_blank" rel="noopener noreferrer">
+                View Published 404 Page ↗
+            </a>
+
+        </div>
+
+        <div class="result">
+            <strong>Result:</strong> I learned how a custom
+            404 page can improve the visitor experience
+            when a requested page cannot be found.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PART 04 -->
+
+<section class="section" id="reflection">
+
+    <div class="section-label">Part 04 · Reflection</div>
+
+    <h2>What I Learned</h2>
+
+    <div class="reflection">
+
+        <p>
+            Through these assignments and exercises,
+            I learned how to organize web projects and
+            use Git to track changes in my work.
+        </p>
+
+        <p>
+            I also learned the importance of commits,
+            branches, and merging. Git helps me record
+            my progress step by step instead of keeping
+            only the final version of a project.
+        </p>
+
+        <p>
+            Working with GitHub helped me understand
+            how local repositories connect to remote
+            repositories. I also learned how GitHub Pages
+            can publish websites and how a custom 404
+            page helps visitors when a page is missing.
+        </p>
+
+        <p>
+            Overall, these activities helped me become
+            more confident using Git, GitHub, and basic
+            website deployment.
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    <p>Week 10 · Web Programming · Gachon University</p>
+    <p>Created by Roshani Sunar · 2026</p>
+
+    <p style="margin-top:10px;">
+        <a href="#home">Back to top ↑</a>
+    </p>
+</footer>
+
+</body>
+</html>
