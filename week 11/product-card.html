@@ -1,21 +1,191 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Card</title>
+  <title>Week 11 - React Props</title>
+
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"></script>
+
   <style>
-    /* Step 5 goes here */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef5ff;
+      color: #172b4d;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+    }
+
+    header {
+      background: #d9eaff;
+      border: 1px solid #b7d5f5;
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      color: #24558a;
+      margin: 0 0 10px;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 0;
+      color: #405a78;
+    }
+
+    .section-title {
+      color: #24558a;
+      margin-bottom: 20px;
+    }
+
+    .products {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #c8ddf5;
+      border-radius: 14px;
+      padding: 25px;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(36, 85, 138, 0.08);
+    }
+
+    .card h2 {
+      color: #24558a;
+      font-size: 21px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+      color: #172b4d;
+    }
+
+    .rating {
+      color: #b7791f;
+    }
+
+    .in-stock {
+      color: #25804e;
+      font-weight: bold;
+      background: #e4f5eb;
+      padding: 9px;
+      border-radius: 8px;
+    }
+
+    .out-of-stock {
+      color: #bd4040;
+      font-weight: bold;
+      background: #fdeaea;
+      padding: 9px;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #60758e;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 14px;
+      }
+
+      .card {
+        width: 100%;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <div id="root"></div>
+
+  <div class="container">
+    <header>
+      <h1>Week 11 - React Props</h1>
+      <p>Web Programming | React Component Practice</p>
+    </header>
+
+    <h2 class="section-title">Product Cards</h2>
+
+    <div id="root"></div>
+
+    <footer>
+      Web Programming | Roshani Sunar | Gachon University
+    </footer>
+  </div>
 
   <script type="text/babel">
-    // Steps 3 and 4 go here
+
+    function ProductCard({ name, price, rating, inStock }) {
+      return (
+        <div className="card">
+          <h2>{name}</h2>
+
+          <p className="price">
+            {price.toLocaleString()}원
+          </p>
+
+          <p className="rating">
+            ★ {rating} / 5 stars
+          </p>
+
+          <p className={inStock ? "in-stock" : "out-of-stock"}>
+            {inStock ? "In Stock" : "Out of Stock"}
+          </p>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <div className="products">
+
+          <ProductCard
+            name="Wireless Earbuds"
+            price={89000}
+            rating={4.5}
+            inStock={true}
+          />
+
+          <ProductCard
+            name="Smart Watch"
+            price={159000}
+            rating={4}
+            inStock={false}
+          />
+
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(
+      document.getElementById("root")
+    ).render(<App />);
+
   </script>
+
 </body>
 </html>
