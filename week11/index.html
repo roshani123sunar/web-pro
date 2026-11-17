@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roshani - Portfolio Gallery</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #eaf5ff;
+            color: #172b4d;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #174a7e;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: 1px solid #8bb9e8;
+            border-radius: 20px;
+            background: white;
+            color: #174a7e;
+            cursor: pointer;
+        }
+
+        button.active {
+            background: #2879c7;
+            color: white;
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: white;
+            border: 1px solid #c7e0f8;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 3px 10px #174a7e12;
+        }
+
+        .project-card h2 {
+            color: #174a7e;
+            font-size: 20px;
+        }
+
+        .project-card p {
+            line-height: 1.6;
+            color: #52677f;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e5f2ff;
+            color: #205b91;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin: 3px;
+        }
+
+        .links {
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid #e3edf7;
+        }
+
+        .links a {
+            display: inline-block;
+            color: #1765a5;
+            font-weight: bold;
+            font-size: 13px;
+            margin: 5px 10px 5px 0;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #52677f;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const projects = [
+    {
+        title: "Interactive Color Palette",
+        description: "An interactive color palette that allows users to explore different colors.",
+        tech: ["JavaScript", "CSS"],
+        live: "https://roshani123sunar.github.io/web-pro/Week%205/index.html",
+        github: "https://github.com/roshani123sunar/web-pro/tree/main/Week%205"
+    },
+    {
+        title: "Random Joke Fetcher",
+        description: "A simple project that displays random jokes using JavaScript.",
+        tech: ["JavaScript", "HTML"],
+        live: "https://roshani123sunar.github.io/web-pro/Week%206/",
+        github: "https://github.com/roshani123sunar/web-pro/tree/main/Week%206"
+    },
+    {
+        title: "HTML Forms",
+        description: "A form practice project with input fields and an organized layout.",
+        tech: ["HTML", "CSS"],
+        live: "https://roshani123sunar.github.io/web-pro/Week%207/",
+        github: "https://github.com/roshani123sunar/web-pro/tree/main/Week%207"
+    }
+];
+
+function FilterBar({ selectedTech, setSelectedTech }) {
+    const filters = ["All", "JavaScript", "HTML", "CSS"];
+
+    return (
+        <div className="filters">
+            {filters.map(tech => (
+                <button
+                    key={tech}
+                    className={selectedTech === tech ? "active" : ""}
+                    onClick={() => setSelectedTech(tech)}
+                >
+                    {tech}
+                </button>
+            ))}
+        </div>
+    );
+}
+
+function ProjectCard({ project }) {
+    return (
+        <div className="project-card">
+            <h2>{project.title}</h2>
+
+            <p>{project.description}</p>
+
+            <div>
+                {project.tech.map(tech => (
+                    <span className="tag" key={tech}>
+                        {tech}
+                    </span>
+                ))}
+            </div>
+
+            <div className="links">
+                <a href={project.live} target="_blank">
+                    Live Site ↗
+                </a>
+
+                <a href={project.github} target="_blank">
+                    GitHub Repository ↗
+                </a>
+            </div>
+        </div>
+    );
+}
+
+function ProjectList({ projects }) {
+    return (
+        <div className="project-list">
+            {projects.map((project, index) => (
+                <ProjectCard
+                    key={index}
+                    project={project}
+                />
+            ))}
+        </div>
+    );
+}
+
+function App() {
+    const [selectedTech, setSelectedTech] = React.useState("All");
+
+    const filteredProjects = selectedTech === "All"
+        ? projects
+        : projects.filter(project =>
+            project.tech.includes(selectedTech)
+        );
+
+    return (
+        <div className="container">
+            <h1>My Portfolio Gallery</h1>
+
+            <p className="subtitle">
+                My Web Programming Projects
+            </p>
+
+            <FilterBar
+                selectedTech={selectedTech}
+                setSelectedTech={setSelectedTech}
+            />
+
+            <ProjectList projects={filteredProjects} />
+
+            <footer>
+                Web Programming | Roshani Sunar | Gachon University
+            </footer>
+        </div>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+</body>
+</html>
