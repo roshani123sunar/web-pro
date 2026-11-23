@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 11-2 | React State Practice</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #eef5fc;
+  color: #26364a;
+  line-height: 1.6;
+}
+
+header {
+  background: #dceafa;
+  padding: 45px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+header p {
+  color: #53677e;
+}
+
+.container {
+  max-width: 1050px;
+  margin: 35px auto;
+  padding: 0 20px;
+}
+
+.intro {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.exercise {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  border: 1px solid #dce7f3;
+}
+
+.exercise h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.exercise p {
+  color: #64748b;
+  margin-bottom: 15px;
+}
+
+button {
+  background: #477db5;
+  color: white;
+  border: none;
+  padding: 9px 17px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin: 5px 4px 5px 0;
+}
+
+button:hover {
+  background: #315f91;
+}
+
+/* Updated text boxes */
+input, textarea {
+  width: 100%;
+  max-width: 450px;
+  padding: 11px;
+  border: 1px solid #cbd8e6;
+  border-radius: 7px;
+  margin: 6px 0;
+  font-size: 15px;
+  background-color: #ffffff;
+  color: #26364a;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #8493a5;
+}
+
+.result {
+  background: #edf5fd;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+ul {
+  padding-left: 22px;
+}
+
+li {
+  margin: 7px 0;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #64748b;
+}
+
+@media(max-width:600px) {
+  header h1 { font-size: 25px; }
+  .exercise { padding: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Week 11-2: React State Practice</h1>
+  <p>Web Programming | React Hooks and useState</p>
+</header>
+
+<div id="root"></div>
+
+<footer>
+  Web Programming | Roshani Sunar | Gachon University
+</footer>
+
+<script type="text/babel">
+const { useState } = React;
+
+function App() {
+  // Exercise 1: Counter
+  const [count, setCount] = useState(0);
+
+  // Exercise 2: Name Input
+  const [name, setName] = useState("");
+
+  // Exercise 3: Task List
+  const [tasks, setTasks] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
+
+  // Exercise 4: Show / Hide
+  const [show, setShow] = useState(false);
+
+  // Exercise 5: Filter Tasks
+  const [filter, setFilter] = useState("All");
+  const [filterTasks, setFilterTasks] = useState([
+    {id: 1, text: "Study React", done: false},
+    {id: 2, text: "Practice JavaScript", done: true},
+    {id: 3, text: "Complete homework", done: false}
+  ]);
+
+  // Exercise 6: Profile Form
+  const [profile, setProfile] = useState({
+    name: "",
+    email: ""
+  });
+  const [profileMessage, setProfileMessage] = useState("");
+
+  // Exercise 7: Quick Note
+  const [note, setNote] = useState(
+    localStorage.getItem("quickNote") || ""
+  );
+  const [saved, setSaved] = useState(false);
+
+  function addTask() {
+    if (!taskInput.trim()) return;
+    setTasks(prev => [...prev, taskInput]);
+    setTaskInput("");
+  }
+
+  function removeTask(index) {
+    setTasks(prev => prev.filter((_, i) => i !== index));
+  }
+
+  function toggleTask(id) {
+    setFilterTasks(prev =>
+      prev.map(task =>
+        task.id === id
+          ? {...task, done: !task.done}
+          : task
+      )
+    );
+  }
+
+  const visibleTasks = filterTasks.filter(task => {
+    if (filter === "Active") return !task.done;
+    if (filter === "Completed") return task.done;
+    return true;
+  });
+
+  function saveProfile(e) {
+    e.preventDefault();
+    if (!profile.name.trim() || !profile.email.includes("@")) {
+      setProfileMessage("Please enter a name and valid email.");
+      return;
+    }
+    setProfileMessage("Profile submitted successfully!");
+  }
+
+  function saveNote() {
+    localStorage.setItem("quickNote", note);
+    setSaved(true);
+  }
+
+  return (
+    <main className="container">
+
+      <section className="intro">
+        <h2>About This Practice</h2>
+        <p>
+          Explore seven interactive exercises to understand
+          React State and the useState Hook.
+        </p>
+      </section>
+
+      <section className="exercise">
+        <h2>1. Counter</h2>
+        <p>Practice updating state with increment and decrement.</p>
+        <div className="result">
+          <h3>Count: {count}</h3>
+        </div>
+        <button onClick={() => setCount(prev => prev + 1)}>+1</button>
+        <button onClick={() => setCount(prev => prev - 1)}>-1</button>
+        <button onClick={() => setCount(0)}>Reset</button>
+      </section>
+
+      <section className="exercise">
+        <h2>2. Name Input</h2>
+        <p>Practice controlled inputs using useState.</p>
+        <input
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="Enter your name"
+        />
+        <div className="result">
+          Hello, {name || "Guest"}!
+        </div>
+      </section>
+
+      <section className="exercise">
+        <h2>3. Task List</h2>
+        <p>Add and remove tasks from an array.</p>
+        <input
+          value={taskInput}
+          onChange={e => setTaskInput(e.target.value)}
+          placeholder="Enter a task"
+          onKeyDown={e => e.key === "Enter" && addTask()}
+        />
+        <button onClick={addTask}>Add Task</button>
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={index}>
+              {task}
+              <button onClick={() => removeTask(index)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="exercise">
+        <h2>4. Show / Hide</h2>
+        <p>Practice boolean state to show or hide content.</p>
+        <button onClick={() => setShow(prev => !prev)}>
+          {show ? "Hide Content" : "Show Content"}
+        </button>
+        {show && (
+          <div className="result">
+            <h3>Hello! Welcome to React State.</h3>
+            <p>This content appears when you click the button.</p>
+          </div>
+        )}
+      </section>
+
+      <section className="exercise">
+        <h2>5. Filter Tasks</h2>
+        <p>Filter tasks by their completion status.</p>
+        {["All", "Active", "Completed"].map(option => (
+          <button key={option} onClick={() => setFilter(option)}>
+            {option}
+          </button>
+        ))}
+        <ul className="result">
+          {visibleTasks.map(task => (
+            <li key={task.id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={task.done}
+                  onChange={() => toggleTask(task.id)}
+                  style={{width: "auto"}}
+                />
+                <span style={{
+                  textDecoration: task.done ? "line-through" : "none"
+                }}>
+                  {task.text}
+                </span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="exercise">
+        <h2>6. Profile Form</h2>
+        <p>Practice form state and basic validation.</p>
+        <form onSubmit={saveProfile}>
+          <input
+            placeholder="Your name"
+            value={profile.name}
+            onChange={e => setProfile(prev => ({
+              ...prev, name: e.target.value
+            }))}
+          />
+          <input
+            placeholder="Your email"
+            type="email"
+            value={profile.email}
+            onChange={e => setProfile(prev => ({
+              ...prev, email: e.target.value
+            }))}
+          />
+          <button type="submit">Submit Profile</button>
+        </form>
+        {profileMessage && (
+          <div className="result">{profileMessage}</div>
+        )}
+      </section>
+
+      <section className="exercise">
+        <h2>7. Quick Note</h2>
+        <p>Write a note and save it using localStorage.</p>
+        <textarea
+          rows="4"
+          value={note}
+          onChange={e => {
+            setNote(e.target.value);
+            setSaved(false);
+          }}
+          placeholder="Write your note here..."
+        />
+        <br />
+        <button onClick={saveNote}>Save Note</button>
+        {saved && <div className="result">Note saved successfully!</div>}
+      </section>
+
+    </main>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+</body>
+</html>
