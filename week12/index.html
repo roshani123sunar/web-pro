@@ -30,7 +30,9 @@
             margin-top: 35px;
         }
 
-        p { line-height: 1.6; }
+        p {
+            line-height: 1.6;
+        }
 
         #root {
             max-width: 1000px;
@@ -266,6 +268,7 @@
             function getUser() {
                 setLoading(true);
                 setError("");
+                setUser(null);
 
                 fetch("https://randomuser.me/api/")
                     .then(response => response.json())
@@ -415,7 +418,7 @@
                             View GitHub Repository
                         </a>
                     </div>
-
+                </div>
             );
         }
 
