@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 12 - React Practice</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #eef6ff;
+            color: #26354a;
+        }
+
+        header {
+            background-color: #d8eaff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #234a70;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #315f8c;
+            margin-top: 35px;
+        }
+
+        p { line-height: 1.6; }
+
+        #root {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+            min-height: 250px;
+            box-shadow: 0 4px 15px rgba(50, 90, 130, 0.08);
+        }
+
+        .exercise-card {
+            background-color: #f4f9ff;
+            border: 1px solid #d5e7fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .exercise-card h3 {
+            color: #315f8c;
+            margin-top: 0;
+        }
+
+        .exercise-card button {
+            background-color: #d8eaff;
+            color: #234a70;
+            border: 1px solid #b8d5f2;
+            padding: 9px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .exercise-card button:hover {
+            background-color: #c3def8;
+        }
+
+        .exercise-card input,
+        .exercise-card textarea {
+            background-color: #ffffff;
+            color: #26354a;
+            padding: 10px;
+            border: 1px solid #c5d9ee;
+            border-radius: 7px;
+            max-width: 100%;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .exercise-card input:focus,
+        .exercise-card textarea:focus {
+            border-color: #8bb9e8;
+            box-shadow: 0 0 5px rgba(139, 185, 232, 0.3);
+        }
+
+        .exercise-card input::placeholder,
+        .exercise-card textarea::placeholder {
+            color: #8295aa;
+        }
+
+        .exercise-card textarea {
+            width: 90%;
+            resize: vertical;
+        }
+
+        .exercise-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .project-link {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #d8eaff;
+            color: #234a70;
+            border: 1px solid #b8d5f2;
+            padding: 10px 16px;
+            border-radius: 7px;
+            margin: 6px 5px 6px 0;
+        }
+
+        .project-link:hover {
+            background-color: #c3def8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #52647a;
+        }
+    </style>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <h1>Week 12: React State & Effects</h1>
+        <p>Web Programming | React Hooks Practice</p>
+    </header>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function ShoppingCartCounter() {
+            const [count, setCount] = React.useState(0);
+
+            return (
+                <div>
+                    <p>Items in cart: {count}</p>
+                    <button onClick={() => setCount(count + 1)}>Add Item</button>
+                    <button onClick={() => setCount(Math.max(0, count - 1))}>Remove Item</button>
+                </div>
+            );
+        }
+
+        function TwoCounters() {
+            const [count, setCount] = React.useState(0);
+
+            return (
+                <div>
+                    <p>Shared Count: {count}</p>
+                    <button onClick={() => setCount(count + 1)}>Counter A +</button>
+                    <button onClick={() => setCount(count - 1)}>Counter B -</button>
+                </div>
+            );
+        }
+
+        function LiveWordCount() {
+            const [text, setText] = React.useState("");
+
+            const wordCount = text.trim() === ""
+                ? 0
+                : text.trim().split(/\s+/).length;
+
+            return (
+                <div>
+                    <textarea
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        placeholder="Start typing here..."
+                        rows="4"
+                    />
+                    <p>Word Count: {wordCount}</p>
+                </div>
+            );
+        }
+
+        function GitHubUserLookup() {
+            const [search, setSearch] = React.useState("");
+            const [username, setUsername] = React.useState("");
+            const [user, setUser] = React.useState(null);
+            const [error, setError] = React.useState("");
+            const [loading, setLoading] = React.useState(false);
+
+            React.useEffect(() => {
+                if (!username) return;
+
+                setLoading(true);
+                setError("");
+                setUser(null);
+
+                fetch(`https://api.github.com/users/${username}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("User not found!");
+                        return response.json();
+                    })
+                    .then(data => setUser(data))
+                    .catch(() => setError("GitHub user not found. Try another username."))
+                    .finally(() => setLoading(false));
+
+            }, [username]);
+
+            return (
+                <div>
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Enter GitHub username"
+                    />
+
+                    <button onClick={() => setUsername(search.trim())}>Search</button>
+
+                    {loading && <p>Loading...</p>}
+                    {error && <p>{error}</p>}
+
+                    {user && (
+                        <div>
+                            <img src={user.avatar_url} width="100" alt="GitHub profile" />
+                            <h3>{user.name || user.login}</h3>
+                            <p>@{user.login}</p>
+                            <a href={user.html_url} target="_blank" rel="noreferrer">
+                                View GitHub Profile
+                            </a>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function PageTitleSync() {
+            const [title, setTitle] = React.useState("Week 12 React Practice");
+
+            React.useEffect(() => {
+                document.title = title;
+            }, [title]);
+
+            return (
+                <div>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Enter page title"
+                    />
+                    <p>Current Page Title: {title}</p>
+                </div>
+            );
+        }
+
+        function FetchUser() {
+            const [user, setUser] = React.useState(null);
+            const [loading, setLoading] = React.useState(false);
+            const [error, setError] = React.useState("");
+
+            function getUser() {
+                setLoading(true);
+                setError("");
+
+                fetch("https://randomuser.me/api/")
+                    .then(response => response.json())
+                    .then(data => setUser(data.results[0]))
+                    .catch(() => setError("Could not load user. Please try again."))
+                    .finally(() => setLoading(false));
+            }
+
+            return (
+                <div>
+                    <button onClick={getUser}>Get Random User</button>
+
+                    {loading && <p>Loading...</p>}
+                    {error && <p>{error}</p>}
+
+                    {user && (
+                        <div>
+                            <img src={user.picture.large} alt="User" />
+                            <h3>{user.name.first} {user.name.last}</h3>
+                            <p>Email: {user.email}</p>
+                            <p>Country: {user.location.country}</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function Stopwatch() {
+            const [seconds, setSeconds] = React.useState(0);
+            const [running, setRunning] = React.useState(false);
+
+            React.useEffect(() => {
+                if (!running) return;
+
+                const timer = setInterval(() => {
+                    setSeconds(prev => prev + 1);
+                }, 1000);
+
+                return () => clearInterval(timer);
+            }, [running]);
+
+            return (
+                <div>
+                    <h3>{seconds} seconds</h3>
+                    <button onClick={() => setRunning(true)}>Start</button>
+                    <button onClick={() => setRunning(false)}>Stop</button>
+                    <button onClick={() => {
+                        setRunning(false);
+                        setSeconds(0);
+                    }}>Reset</button>
+                </div>
+            );
+        }
+
+        function LiveCharacterCount() {
+            const [text, setText] = React.useState("");
+
+            return (
+                <div>
+                    <textarea
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        placeholder="Type something here..."
+                        rows="4"
+                    />
+                    <p>Character Count: {text.length}</p>
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <h2>Week 12 React Exercises</h2>
+                    <p>Welcome to my React practice website!</p>
+
+                    <h2>Monday: React useState Practice</h2>
+                    <p>Practice managing data and updating the interface using React useState.</p>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 1: Shopping Cart Counter</h3>
+                        <p>Practice adding and removing products from a shopping cart.</p>
+                        <ShoppingCartCounter />
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 2: Lift State Between Two Counters</h3>
+                        <p>Learn how two components can share the same state.</p>
+                        <TwoCounters />
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 3: Live Word Count</h3>
+                        <p>Count words while typing in a text area.</p>
+                        <LiveWordCount />
+                    </div>
+
+                    <h2>Friday: React useEffect Practice</h2>
+                    <p>Practice using React useEffect for API requests, timers, and page updates.</p>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 1: GitHub User Lookup</h3>
+                        <p>Search for a GitHub user and display their profile.</p>
+                        <GitHubUserLookup />
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 2: Page Title Sync</h3>
+                        <p>Update the browser tab title using React state.</p>
+                        <PageTitleSync />
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 3: Fetch a User from an API</h3>
+                        <p>Learn how to fetch and display user information.</p>
+                        <FetchUser />
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 4: Stopwatch with Cleanup</h3>
+                        <p>Create a stopwatch and clean up its timer.</p>
+                        <Stopwatch />
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Exercise 5: Live Character Count</h3>
+                        <p>Count characters while typing.</p>
+                        <LiveCharacterCount />
+                    </div>
+
+                    <h2>Homework Projects</h2>
+                    <p>Two practical React projects to apply what I learned.</p>
+
+                    <div className="exercise-card">
+                        <h3>Project 1: Stationery Shopping Cart</h3>
+                        <p>A shopping website for stationery products with prices, quantities, and cart total.</p>
+
+                        <a className="project-link"
+                           href="https://roshani123sunar.github.io/stationery-cart/"
+                           target="_blank" rel="noreferrer">
+                            View Live Website
+                        </a>
+
+                        <a className="project-link"
+                           href="https://github.com/roshani123sunar/stationery-cart"
+                           target="_blank" rel="noreferrer">
+                            View GitHub Repository
+                        </a>
+                    </div>
+
+                    <div className="exercise-card">
+                        <h3>Project 2: Weather Dashboard</h3>
+                        <p>A weather application that shows current weather information by city.</p>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+
+    </script>
+
+    <footer>
+        Web Programming | Roshani Sunar | Gachon University
+    </footer>
+
+</body>
+</html>
